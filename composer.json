@@ -1,0 +1,25 @@
+{
+  "name": "alexeybelokudrenko/codepen-loader",
+  "authors": [
+    {
+      "name": "alexeybelokudrenko",
+      "email": "alexey.belokudrenko@auroraglobal.com"
+    }
+  ],
+  "require": {
+    "symfony/console": "^4.3",
+    "guzzlehttp/guzzle": "^6.4",
+    "symfony/var-dumper": "^4.3",
+    "ext-dom": "*",
+    "yangqi/htmldom": "^1.0",
+    "kub-at/php-simple-html-dom-parser": "^1.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "drlenux\\codePenLoader\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "test\\": "test/"
+  }
+}
