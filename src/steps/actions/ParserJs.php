@@ -42,7 +42,7 @@ class ParserJs extends StepAbstract
                 $script->setAttribute('src', './js/' . $name);
             } else {
                 $js = $script->innertext();
-                file_put_contents($dirPath . (++$id) . '.js', $js);
+                file_put_contents($dirPath . (++$id) . '.js', htmlspecialchars_decode($js));
                 $script->innertext = '';
                 $script->setAttribute('src', './js/' . $id . '.js');
             }
