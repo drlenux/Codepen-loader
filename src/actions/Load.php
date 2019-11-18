@@ -3,9 +3,11 @@
 namespace drlenux\codePenLoader\actions;
 
 use drlenux\codePenLoader\CodePenLoader;
+use drlenux\codePenLoader\steps\actions\InitStep;
 use drlenux\codePenLoader\steps\actions\ParserCss;
 use drlenux\codePenLoader\steps\actions\ParserJs;
 use drlenux\codePenLoader\steps\actions\SaveHtml;
+use drlenux\codePenLoader\steps\StepInterface;
 use drlenux\codePenLoader\steps\StepRequest;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -31,7 +33,7 @@ class Load extends Command
         $this
             ->addArgument('user', InputArgument::REQUIRED)
             ->addArgument('project', InputArgument::REQUIRED)
-        ->addArgument('name', InputArgument::OPTIONAL);
+            ->addArgument('name', InputArgument::OPTIONAL);
     }
 
     /**
@@ -50,15 +52,22 @@ class Load extends Command
         }
 
         $request = new StepRequest($this->getUrl($user, $project), CodePenLoader::getDirPath(), $name);
+        $this->getStep()->handle($request);
+    }
 
-        $step = new LoadHtml();
+    /**
+     * @return StepInterface
+     */
+    private function getStep(): StepInterface
+    {
+        $step = new InitStep();
 
-        $step
+        $step->setNext(new LoadHtml())
             ->setNext(new ParserJs())
             ->setNext(new ParserCss())
             ->setNext(new SaveHtml());
 
-        $step->handle($request);
+        return $step;
     }
 
     /**

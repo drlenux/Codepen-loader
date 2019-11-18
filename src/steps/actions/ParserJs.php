@@ -5,11 +5,9 @@ namespace drlenux\codePenLoader\steps\actions;
 use drlenux\codePenLoader\CodePenLoader;
 use drlenux\codePenLoader\steps\StepAbstract;
 use drlenux\codePenLoader\steps\StepRequest;
-use drlenux\codePenLoader\helpers\DirHelper;
 use KubAT\PhpSimple\HtmlDomParser;
 use simple_html_dom\simple_html_dom;
 use simple_html_dom\simple_html_dom_node;
-use Yangqi\Htmldom\Htmldom;
 
 
 /**
@@ -25,10 +23,13 @@ class ParserJs extends StepAbstract
     public function run(StepRequest $request): bool
     {
         $dirPath = CodePenLoader::getDirPath() . '/' . $request->getName() . '/js/';
-        DirHelper::mkDir($dirPath);
 
         /** @var simple_html_dom $dom */
         $dom = HtmlDomParser::str_get_html($request->getBody());
+        if (is_bool($dom)) {
+            return true;
+        }
+
         $scripts = $dom->find('script');
         $id = 0;
 

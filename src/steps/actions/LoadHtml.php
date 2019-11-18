@@ -33,7 +33,7 @@ class LoadHtml extends StepAbstract
             return false;
         }
 
-        preg_match('/srcdoc="(?P<html>[a-zA-Z<!>\ \r\n=&;\-0-9\/:\.#@()?+,|{}*%_\'$[\]\\\^\`]+)"/i', $response->getBody(), $srcdoc);
+        preg_match('/srcdoc="(?P<html>[a-zA-Z<!>\ \r\n=&;\-0-9\/:\.#@()?+,|{}*%_\'$[\]\\\^\`\t~]+)"/i', $response->getBody(), $srcdoc);
         $html = str_replace('&quot;', '"', $srcdoc['html']);
         $request->setBody($html);
 

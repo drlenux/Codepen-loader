@@ -23,10 +23,9 @@ class CodePenLoader
     public static function run(string $dirPath): void
     {
         self::$dirPath = $dirPath;
+
         $app = new Application();
-
         $app->add(new Load());
-
         $app->run();
     }
 

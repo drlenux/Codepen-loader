@@ -3,7 +3,6 @@
 namespace drlenux\codePenLoader\steps\actions;
 
 use drlenux\codePenLoader\CodePenLoader;
-use drlenux\codePenLoader\helpers\DirHelper;
 use drlenux\codePenLoader\steps\StepAbstract;
 use drlenux\codePenLoader\steps\StepRequest;
 use KubAT\PhpSimple\HtmlDomParser;
@@ -24,11 +23,12 @@ class ParserCss extends StepAbstract
     public function run(StepRequest $request): bool
     {
         $dirPath = CodePenLoader::getDirPath() . '/' . $request->getName() . '/css/';
-        DirHelper::mkDir($dirPath);
 
         /** @var simple_html_dom $dom */
         $dom = HtmlDomParser::str_get_html($request->getBody());
-
+        if ($dom === false) {
+            return true;
+        }
         $styles = $dom->find('style');
         $id = 0;
 

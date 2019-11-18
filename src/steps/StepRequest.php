@@ -21,11 +21,6 @@ class StepRequest
     /**
      * @var string
      */
-    private $filePath;
-
-    /**
-     * @var string
-     */
     private $dirPath;
 
     /**
@@ -55,14 +50,6 @@ class StepRequest
     }
 
     /**
-     * @param string $filePath
-     */
-    public function setFilePath(string $filePath): void
-    {
-        $this->filePath = $filePath;
-    }
-
-    /**
      * @return string
      */
     public function getUrl(): string
@@ -76,14 +63,6 @@ class StepRequest
     public function getBody(): string
     {
         return $this->body;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFilePath(): string
-    {
-        return $this->filePath;
     }
 
     /**
